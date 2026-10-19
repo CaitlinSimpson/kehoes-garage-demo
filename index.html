@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#172f2b">
+<title>Kehoe’s Garage — Job Board Alpha</title>
+<style>
+:root{--ink:#172f2b;--muted:#64736e;--paper:#f5f7f4;--card:#fff;--line:#dce4df;--green:#176b50;--green2:#e4f4eb;--amber:#fff0c2;--amberink:#805500;--red:#ffe1df;--redink:#a12620;--blue:#e5efff;--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45}button,input,select{font:inherit}button{cursor:pointer}
+header{background:var(--ink);color:#fff;padding:18px 16px 16px}.head{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:850;font-size:20px;letter-spacing:-.5px}.sub{color:#d5e1dc;font-size:12px;margin-top:3px}.sample{font-size:11px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;background:#f5d86c;color:#26372e;border-radius:999px;padding:7px 10px;white-space:nowrap}
+main{max-width:1100px;margin:auto;padding:18px 14px 42px}.intro{margin:4px 2px 16px}.intro h1{font-size:clamp(24px,4vw,34px);line-height:1.12;letter-spacing:-.8px;margin:0 0 7px}.intro p{color:var(--muted);margin:0;font-size:14px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#e7ece8;padding:6px;border-radius:16px;margin:18px 0}.tab{border:0;background:transparent;border-radius:12px;padding:13px 7px;font-weight:800;color:#53625c;min-height:48px}.tab[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px #132d2610}
+.panel{display:none}.panel.active{display:block}.panelhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:6px 0 14px}.panelhead h2{font-size:21px;margin:0 0 3px;letter-spacing:-.4px}.panelhead p{font-size:13px;color:var(--muted);margin:0}.count{background:var(--green2);color:var(--green);font-weight:850;font-size:12px;border-radius:999px;padding:7px 10px;white-space:nowrap}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.field{width:100%;border:1px solid #cbd7d0;background:#fff;border-radius:12px;padding:12px 13px;min-height:48px;color:var(--ink)}.toolbar .field{flex:1;min-width:160px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.job{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px;min-width:0;box-shadow:0 3px 10px #193b2e06}.job.overdue{border:2px solid #e14b43;background:#fff8f7}.jobtop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.reg{font-size:18px;font-weight:900;letter-spacing:.4px}.jobno{font-size:11px;color:var(--muted);margin-top:2px}.vehicle{font-size:13px;margin:10px 0 12px}.stage{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:850;background:#edf0ee;color:#46534e}.stage.ready{background:var(--green2);color:var(--green)}.stage.wait{background:var(--amber);color:var(--amberink)}.stage.overduebadge{background:var(--red);color:var(--redink)}.note{font-size:12px;color:var(--muted);margin:10px 0}.meta{font-size:11px;color:var(--muted);margin-top:8px}.actions{display:flex;gap:7px;margin-top:12px}.btn{border:0;border-radius:12px;min-height:46px;padding:10px 12px;font-size:13px;font-weight:850}.primary{background:var(--green);color:white;flex:1}.secondary{background:#edf1ee;color:var(--ink)}.btn:focus-visible,.tab:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #5c9bff;outline-offset:2px}
+.empty{background:#fff;border:1px dashed #c7d3cc;border-radius:16px;padding:24px;text-align:center;color:var(--muted);font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}.stat strong{display:block;font-size:24px;line-height:1.1}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:5px}.legend{font-size:12px;color:var(--muted);margin:0 0 12px}
+.lookup{max-width:620px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px}.lookup h3{margin:0 0 5px;font-size:18px}.lookup p{margin:0 0 15px;font-size:13px;color:var(--muted)}.lookup label{display:block;font-weight:800;font-size:12px;margin:13px 0 6px}.lookup .btn{width:100%;margin-top:14px;min-height:50px}.result{margin-top:15px}.privacy{font-size:11px;color:var(--muted);margin-top:13px;border-top:1px solid var(--line);padding-top:12px}.notice{border-radius:12px;padding:12px;font-size:13px;margin-top:12px}.notice.error{background:var(--red);color:var(--redink)}.notice.success{background:var(--green2);color:var(--green)}
+footer{max-width:1100px;margin:auto;padding:0 14px 24px;color:var(--muted);font-size:11px}.reset{background:transparent;border:1px solid #9aaba2;color:var(--muted);border-radius:9px;padding:7px 10px;font-size:11px}
+@media(max-width:650px){main{padding:15px 12px 32px}.cards{grid-template-columns:1fr}.job{padding:15px}.tabs{gap:4px;padding:4px}.tab{font-size:12px;padding:11px 3px}.head{align-items:flex-start}.brand{font-size:18px}.sample{font-size:9px;padding:6px 8px}.panelhead{align-items:center}.stats{gap:6px}.stat{padding:10px}.stat strong{font-size:21px}.stat span{font-size:10px}.actions .btn{min-height:48px}.lookup{padding:16px}}
+@media(min-width:900px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><div class="head"><div><div class="brand">Kehoe’s Garage</div><div class="sub">Workshop job board · Enniscorthy, Co. Wexford</div></div><span class="sample">Alpha · sample data</span></div></header>
+<main>
+<section class="intro"><h1>Keep repairs moving.</h1><p>A simple shared view of each car’s progress, from check-in to collection.</p></section>
+<div class="tabs" role="tablist" aria-label="Choose view">
+<button class="tab" id="tab-workshop" role="tab" aria-selected="true" aria-controls="workshop" data-view="workshop">🔧 Workshop</button>
+<button class="tab" id="tab-office" role="tab" aria-selected="false" aria-controls="office" data-view="office">📋 Office</button>
+<button class="tab" id="tab-customer" role="tab" aria-selected="false" aria-controls="customer" data-view="customer">🚗 Customer</button>
+</div>
+<section class="panel active" id="workshop" role="tabpanel" aria-labelledby="tab-workshop">
+<div class="panelhead"><div><h2>Today in the workshop</h2><p>Large controls, no typing needed to move a job along.</p></div><span class="count" id="workshop-count">0 cars</span></div>
+<div class="toolbar"><input id="workshop-search" class="field" type="search" placeholder="Find reg or job number" aria-label="Find registration or job number"></div>
+<div id="workshop-cards" class="cards"></div>
+</section>
+<section class="panel" id="office" role="tabpanel" aria-labelledby="tab-office">
+<div class="panelhead"><div><h2>Office overview</h2><p>Spot delayed parts and cars ready for collection.</p></div><button class="reset" id="reset-data" type="button">Reset sample data</button></div>
+<div class="stats"><div class="stat"><strong id="stat-total">0</strong><span>Cars in system</span></div><div class="stat"><strong id="stat-overdue">0</strong><span>Waiting for parts &gt; 2 days</span></div><div class="stat"><strong id="stat-ready">0</strong><span>Ready to collect</span></div></div>
+<p class="legend">Red = waiting for parts more than 2 days. Amber = waiting for parts for 2 days or less.</p>
+<div id="office-cards" class="cards"></div>
+</section>
+<section class="panel" id="customer" role="tabpanel" aria-labelledby="tab-customer">
+<div class="panelhead"><div><h2>Check your car’s progress</h2><p>Use the job number and registration given by the garage.</p></div></div>
+<div class="lookup">
+<h3>Vehicle status lookup</h3><p>Enter both details to see the status of your own vehicle.</p>
+<form id="lookup-form">
+<label for="lookup-job">Job number</label><input class="field" id="lookup-job" autocomplete="off" placeholder="e.g. KH-1042" required>
+<label for="lookup-reg">Vehicle registration</label><input class="field" id="lookup-reg" autocomplete="off" placeholder="e.g. 12-WH-4821" required>
+<button class="btn primary" type="submit">Check vehicle status</button>
+</form>
+<div id="lookup-result" class="result" aria-live="polite"></div>
+<div class="privacy">Privacy by design: this view shows only the matching vehicle’s status and a short note. It never lists other customer vehicles.</div>
+</div>
+</section>
+</main>
+<footer>Prototype only · All records are fictional sample data. Changes are saved in this browser on this device. Do not enter real customer information.</footer>
+<script>
+const STORAGE_KEY = "kehoesGarageAlphaV1";
+const stages = ["Booked in","Being checked","Waiting for parts","Being fixed","Ready to collect"];
+const seed = [
+ {job:"KH-1042",reg:"12-WH-4821",car:"Toyota Corolla",customer:"Sample customer A",stage:"Booked in",note:"Your car is booked in and awaiting its initial check.",days:0},
+ {job:"KH-1043",reg:"161-D-9021",car:"Ford Focus",customer:"Sample customer B",stage:"Being checked",note:"A mechanic is checking the vehicle and identifying the issue.",days:0},
+ {job:"KH-1044",reg:"09-WX-1735",car:"Volkswagen Golf",customer:"Sample customer C",stage:"Waiting for parts",note:"We are waiting for a replacement part before work can continue.",days:1},
+ {job:"KH-1045",reg:"201-WH-6620",car:"Hyundai Tucson",customer:"Sample customer D",stage:"Waiting for parts",note:"The required part has not arrived yet. The garage will update you when work can resume.",days:3},
+ {job:"KH-1046",reg:"15-C-48821",car:"Nissan Qashqai",customer:"Sample customer E",stage:"Being fixed",note:"The repair is in progress.",days:0},
+ {job:"KH-1047",reg:"181-WX-704",car:"Skoda Octavia",customer:"Sample customer F",stage:"Ready to collect",note:"Your car is ready for collection. Please contact the garage to arrange pickup.",days:0},
+ {job:"KH-1048",reg:"10-D-11472",car:"Honda Civic",customer:"Sample customer G",stage:"Waiting for parts",note:"We are waiting for a replacement part before work can continue.",days:2},
+ {job:"KH-1049",reg:"222-WH-1902",car:"Kia Sportage",customer:"Sample customer H",stage:"Ready to collect",note:"Your car is ready for collection. Please contact the garage to arrange pickup.",days:0},
+ {job:"KH-1050",reg:"171-LS-551",car:"Opel Astra",customer:"Sample customer I",stage:"Booked in",note:"Your car is booked in and awaiting its initial check.",days:0}
+];
+let jobs = loadJobs();
+function loadJobs(){try{const saved=localStorage.getItem(STORAGE_KEY);if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed)&&parsed.length)return parsed;}}catch(e){}return structuredClone(seed)}
+function saveJobs(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(jobs));}catch(e){alert("Browser storage is unavailable. Changes may not survive a refresh.");}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function isOverdue(j){return j.stage==="Waiting for parts" && Number(j.days)>2}
+function stageClass(j){if(isOverdue(j))return "overduebadge";if(j.stage==="Waiting for parts")return "wait";if(j.stage==="Ready to collect")return "ready";return ""}
+function card(j,mode){const overdue=isOverdue(j);const stageIndex=stages.indexOf(j.stage);
+ return `<article class="job ${overdue?"overdue":""}"><div class="jobtop"><div><div class="reg">${esc(j.reg)}</div><div class="jobno">${esc(j.job)}</div></div><span class="stage ${stageClass(j)}">${overdue?"⚠ ": ""}${esc(j.stage)}</span></div><div class="vehicle"><strong>${esc(j.car)}</strong></div>
+ ${mode==="office"?`<div class="meta">${j.stage==="Waiting for parts"?`Waiting ${Number(j.days)} day${Number(j.days)===1?"":"s"} for parts`:(j.stage==="Ready to collect"?"Awaiting customer collection":"Current workshop stage")}</div>`:""}
+ ${mode==="workshop"?`<div class="note">${esc(j.note)}</div><div class="actions"><button class="btn primary" data-next="${esc(j.job)}">${stageIndex===stages.length-1?"✓ Ready":"Move to next stage →"}</button><button class="btn secondary" data-editdays="${esc(j.job)}" aria-label="Update days waiting for parts">Days</button></div>`:""}
+ ${mode==="office"?`<div class="note">${esc(j.note)}</div><div class="actions"><button class="btn secondary" data-editstage="${esc(j.job)}">Change stage</button>${j.stage==="Waiting for parts"?`<button class="btn secondary" data-editdays="${esc(j.job)}">Update days</button>`:""}</div>`:""}
+ </article>`}
+function renderWorkshop(){const q=document.querySelector("#workshop-search").value.trim().toLowerCase();const filtered=jobs.filter(j=>(j.reg+" "+j.job+" "+j.car).toLowerCase().includes(q));document.querySelector("#workshop-count").textContent=`${filtered.length} car${filtered.length===1?"":"s"}`;document.querySelector("#workshop-cards").innerHTML=filtered.length?filtered.map(j=>card(j,"workshop")).join(""):`<div class="empty">No matching cars found.</div>`}
+function renderOffice(){document.querySelector("#stat-total").textContent=jobs.length;document.querySelector("#stat-overdue").textContent=jobs.filter(isOverdue).length;document.querySelector("#stat-ready").textContent=jobs.filter(j=>j.stage==="Ready to collect").length;const groups=stages.map(stage=>({stage,items:jobs.filter(j=>j.stage===stage)})).filter(g=>g.items.length);document.querySelector("#office-cards").innerHTML=groups.map(g=>`<div style="grid-column:1/-1;margin-top:5px"><h3 style="font-size:14px;margin:8px 0">${esc(g.stage)} <span style="color:var(--muted);font-weight:600">(${g.items.length})</span></h3><div class="cards">${g.items.map(j=>card(j,"office")).join("")}</div></div>`).join("")}
+function render(){renderWorkshop();renderOffice()}
+function setView(view){document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===view)));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===view))}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+document.querySelector("#workshop-search").addEventListener("input",renderWorkshop);
+document.addEventListener("click",e=>{
+ const next=e.target.closest("[data-next]");if(next){const j=jobs.find(x=>x.job===next.dataset.next);if(j){const idx=stages.indexOf(j.stage);j.stage=stages[Math.min(idx+1,stages.length-1)];if(j.stage==="Ready to collect")j.note="Your car is ready for collection. Please contact the garage to arrange pickup.";else if(j.stage==="Being fixed")j.note="The repair is in progress.";else if(j.stage==="Being checked")j.note="A mechanic is checking the vehicle and identifying the issue.";else if(j.stage==="Waiting for parts")j.note="We are waiting for a replacement part before work can continue.";saveJobs();render();}}
+ const days=e.target.closest("[data-editdays]");if(days){const j=jobs.find(x=>x.job===days.dataset.editdays);if(j){const val=prompt("How many days has this car been waiting for parts? Enter 0 if it is not waiting for parts.",String(j.days||0));if(val!==null&&val.trim()!==""&&Number.isFinite(Number(val))&&Number(val)>=0){j.days=Math.floor(Number(val));saveJobs();render();}}}
+ const stage=e.target.closest("[data-editstage]");if(stage){const j=jobs.find(x=>x.job===stage.dataset.editstage);if(j){const choice=prompt("Enter the new stage exactly as shown:\n"+stages.join("\n"),j.stage);if(choice!==null&&stages.includes(choice)){j.stage=choice;if(choice==="Ready to collect")j.note="Your car is ready for collection. Please contact the garage to arrange pickup.";saveJobs();render();}}}
+});
+document.querySelector("#lookup-form").addEventListener("submit",e=>{e.preventDefault();const job=document.querySelector("#lookup-job").value.trim().toUpperCase();const reg=document.querySelector("#lookup-reg").value.trim().toUpperCase().replace(/\s+/g,"");const result=document.querySelector("#lookup-result");const found=jobs.find(j=>j.job.toUpperCase()===job&&j.reg.toUpperCase().replace(/\s+/g,"")===reg);if(!found){result.innerHTML='<div class="notice error">We could not find a match for both details. Check the job number and registration, then try again.</div>';return;}result.innerHTML=`<article class="job"><div class="jobtop"><div><div class="reg">${esc(found.reg)}</div><div class="jobno">${esc(found.job)}</div></div><span class="stage ${stageClass(found)}">${esc(found.stage)}</span></div><div class="vehicle"><strong>${esc(found.car)}</strong></div><p class="note" style="font-size:14px">${esc(found.note)}</p></article><div class="notice success">Showing status for the matching vehicle only.</div>`;});
+document.querySelector("#reset-data").addEventListener("click",()=>{if(confirm("Reset all records to the original fictional sample data? This will overwrite changes saved in this browser.")){jobs=structuredClone(seed);saveJobs();render();}});
+render();
+</script>
+</body>
+</html>
